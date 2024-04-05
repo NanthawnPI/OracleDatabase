@@ -20,7 +20,7 @@ checkDatabaseRole() {
    DB_ROLE=$(sqlplus -s / << EOF
 set heading off;
 set pagesize 0;
-SELECT database_role FROM v$database ;
+SELECT database_role FROM v\$database ;
 exit;
 EOF
 )

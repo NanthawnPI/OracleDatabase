@@ -28,10 +28,10 @@ FROM ${BASE_IMAGE} as base
 # ------
 LABEL "provider"="Oracle"                                               \
       "issues"="https://github.com/oracle/docker-images/issues"         \
-      "volume.data"="/test/oracle/oradata"                               \
-      "volume.setup.location1"="/test/oracle/scripts/setup"              \
+      "volume.data"="/u01/oracle/oradata"                               \
+      "volume.setup.location1"="/u01/oracle/scripts/setup"              \
       "volume.setup.location2"="/docker-entrypoint-initdb.d/setup"      \
-      "volume.startup.location1"="/test/oracle/scripts/startup"          \
+      "volume.startup.location1"="/u01/oracle/scripts/startup"          \
       "volume.startup.location2"="/docker-entrypoint-initdb.d/startup"  \
       "port.listener"="1521"                                            \
       "port.oemexpress"="5500"
@@ -42,9 +42,9 @@ ARG INSTALL_FILE_1="LINUX.X64_193000_db_home.zip"
 
 # Environment variables required for this build (do NOT change)
 # -------------------------------------------------------------
-ENV ORACLE_BASE=/test/oracle \
-    ORACLE_HOME=/test/oracle/product/19c/dbhome_1 \
-    INSTALL_DIR=/test/install \
+ENV ORACLE_BASE=/u01/oracle \
+    ORACLE_HOME=/u01/oracle/product/19c/dbhome_1 \
+    INSTALL_DIR=/opt/install \
     INSTALL_FILE_1=$INSTALL_FILE_1 \
     INSTALL_RSP="db_inst.rsp" \
     CONFIG_RSP="dbca.rsp.tmpl" \

@@ -123,15 +123,15 @@ if [[ "${CLONE_DB}" == "true" ]] || [[ "${STANDBY_DB}" == "true" ]]; then
     # Ignoring shell check so as to treat DBCA_CRED_OPTIONS as separate args to dbca
     # shellcheck disable=SC2086
     dbca -silent -createDuplicateDB -gdbName "$PRIMARY_DB_NAME" -primaryDBConnectionString "$PRIMARY_DB_CONN_STR" ${DBCA_CRED_OPTIONS} -sid "$ORACLE_SID" -createAsStandby -dbUniquename "$ORACLE_SID" ORACLE_HOSTNAME="$ORACLE_HOSTNAME" ||
-      cat /test/oracle/cfgtoollogs/dbca/"$ORACLE_SID"/"$ORACLE_SID".log ||
-      cat /test/oracle/cfgtoollogs/dbca/"$ORACLE_SID".log
+      cat /u01/oracle/cfgtoollogs/dbca/"$ORACLE_SID"/"$ORACLE_SID".log ||
+      cat /u01/oracle/cfgtoollogs/dbca/"$ORACLE_SID".log
   else
     # Creating clone database using DBCA after duplicating a primary database; CLONE_DB is set to true here
     # Ignoring shell check so as to treat DBCA_CRED_OPTIONS as separate args to dbca
     # shellcheck disable=SC2086
     dbca -silent -createDuplicateDB -gdbName "${ORACLE_SID}" -primaryDBConnectionString "${PRIMARY_DB_CONN_STR}" ${DBCA_CRED_OPTIONS} -sid "${ORACLE_SID}" -databaseConfigType SINGLE -useOMF true -dbUniquename "${ORACLE_SID}" ORACLE_HOSTNAME="${ORACLE_HOSTNAME}" ||
-      cat /test/oracle/cfgtoollogs/dbca/"$ORACLE_SID"/"$ORACLE_SID".log ||
-      cat /test/oracle/cfgtoollogs/dbca/"$ORACLE_SID".log
+      cat /u01/oracle/cfgtoollogs/dbca/"$ORACLE_SID"/"$ORACLE_SID".log ||
+      cat /u01/oracle/cfgtoollogs/dbca/"$ORACLE_SID".log
   fi
 
   # Setup tnsnames.ora after DBCA command execution, otherwise tnsnames gets overwritten by DBCA
@@ -202,8 +202,8 @@ export ARCHIVELOG_DIR=$ORACLE_BASE/oradata/$ORACLE_SID/$ARCHIVELOG_DIR_NAME
 # shellcheck disable=SC2086
 lsnrctl start &&
 dbca -silent -createDatabase -enableArchive "$ENABLE_ARCHIVELOG" -archiveLogDest "$ARCHIVELOG_DIR" ${DBCA_CRED_OPTIONS} -responseFile "$ORACLE_BASE"/dbca.rsp ||
- cat /test/oracle/cfgtoollogs/dbca/"$ORACLE_SID"/"$ORACLE_SID".log ||
- cat /test/oracle/cfgtoollogs/dbca/"$ORACLE_SID".log
+ cat /u01/oracle/cfgtoollogs/dbca/"$ORACLE_SID"/"$ORACLE_SID".log ||
+ cat /u01/oracle/cfgtoollogs/dbca/"$ORACLE_SID".log
 
 # Setup tnsnames.ora after DBCA command execution, otherwise tnsnames gets overwritten by DBCA
 setupTnsnames;
